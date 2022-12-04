@@ -1,5 +1,3 @@
-#contents = "GbccTtTSGGbgrcWBGGrdgTnVQnCmNpCJlNnNPVfClcnN"
-
 with open('contents.txt') as f:
     contents = [line.rstrip('\n') for line in f]
 
@@ -7,10 +5,9 @@ tally = 0
 
 def find_error (rucksack):
     tally = 0
-    length = len(rucksack)
-    half = int(length/2)
-    first_half = list(rucksack[0:half - 1])
-    second_half = list(rucksack[half - 1:])
+    half = int((len(rucksack))/2)
+    first_half = list(rucksack[0:half])
+    second_half = list(rucksack[half:])
     item_error = list(set(first_half).intersection(second_half))
     for item in item_error:
         if item.isupper():
@@ -19,9 +16,7 @@ def find_error (rucksack):
             tally += ord(item) - 96
     return tally
 
-#for rucksack in contents:
-#    tally += find_error(rucksack)
-#tally += find_error(contents[0])
-tally += find_error(contents[1])
+for rucksack in contents:
+   tally += find_error(rucksack)
 
 print(tally)
