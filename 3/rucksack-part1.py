@@ -8,7 +8,7 @@ def find_error (rucksack):
     half = int((len(rucksack))/2)
     first_half = list(rucksack[0:half])
     second_half = list(rucksack[half:])
-    item_error = list(set(first_half).intersection(second_half))
+    item_error = set(first_half).intersection(second_half)
     for item in item_error:
         if item.isupper():
             tally += ord(item) - 38
