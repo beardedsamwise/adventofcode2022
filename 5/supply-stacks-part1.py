@@ -30,4 +30,4 @@ for move in contents:
 
 # return crate on top of each stack
 for k,v in stacks.items():
-    print(v[-1])
+    print(v[-1], end="")
