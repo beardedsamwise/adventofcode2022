@@ -36,20 +36,20 @@ for output in puzzle:
 # calculate file sizes
 tally = 0
 for dir_par,sizes_par in size_tree.items():
-    if dir_par == "/":
+    if dir_par == "/": # skip the root dir, even though it's probably too big
         continue
     else:
         print("Processing " + dir_par)
         size = 0
         for dir_child,sizes_child in size_tree.items():
-            if dir_par == dir_child:
+            if dir_par == dir_child: # add the current directory to size
                 size += sum(sizes_child)
                 print("Adding " + dir_par)
-            elif dir_child.startswith(dir_par):
+            elif dir_child.startswith(dir_par): # check if other dirs are child directories, if so add to size
                 print("Adding " + dir_child + " to tally.")
                 size += sum(sizes_child)
         print("Size: " + str(size))
-        if size <= 100000:
+        if size <= 100000: # if size of parent + child dirs is under threshold, add to tally
             print("Directory is under the threshold, adding...")
             tally += size
         else:
