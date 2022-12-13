@@ -1,14 +1,14 @@
 import re
 
 with open('input.txt') as f:
-    input = [line.rstrip('\n') for line in f]
+    puzzle = [line.rstrip('\n') for line in f]
 
 current_dir_list = []
 current_dir_str = ""
 size_tree = {}
 
 # create dictionary of dirs + file sizes
-for output in input:
+for output in puzzle:
     if (output.startswith('$')):
         # change directories
         if "cd" in output:
@@ -36,21 +36,27 @@ for output in input:
 # calculate file sizes
 tally = 0
 for dir_par,sizes_par in size_tree.items():
-    print("Processing " + dir_par)
-    # add files in child dir
-    size = 0
-    for dir_child,sizes_child in size_tree.items():
-        if dir_par == dir_child:
-            print("Skipping " + dir_par)
-            continue
-        if dir_par in dir_child:
-            print("Adding " + dir_child + " to tally.")
-            size += sum(sizes_child)
-    # add files in current dir
-    size += sum(sizes_par)
-    print("Adding " + dir_par)
-    if size <= 100000:
-        tally += size
+    if dir_par == "/":
+        continue
+    else:
+        print("Processing " + dir_par)
+        # add files in child dir
+        size = 0
+        for dir_child,sizes_child in size_tree.items():
+            if dir_par == dir_child:
+                size += sum(sizes_par)
+                print("Adding " + dir_par)
+            elif dir_child.startswith(dir_par):
+                print("Adding " + dir_child + " to tally.")
+                size += sum(sizes_child)
+        print("Size: " + str(size))
+        if size <= 100000:
+            print("Directory is under the threshold, adding...")
+            tally += size
+        else:
+            print("Too big... skipping...")
+        input("Press Enter to continue...")
+    
 
 print(size_tree)
 print(tally)
