@@ -40,11 +40,10 @@ for dir_par,sizes_par in size_tree.items():
         continue
     else:
         print("Processing " + dir_par)
-        # add files in child dir
         size = 0
         for dir_child,sizes_child in size_tree.items():
             if dir_par == dir_child:
-                size += sum(sizes_par)
+                size += sum(sizes_child)
                 print("Adding " + dir_par)
             elif dir_child.startswith(dir_par):
                 print("Adding " + dir_child + " to tally.")
