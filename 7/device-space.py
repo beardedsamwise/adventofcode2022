@@ -21,10 +21,10 @@ for output in puzzle:
                 else:
                     current_dir_list.append(dir)
             current_dir_str = ''.join(current_dir_list)
-        if "ls" in output: # we don't actually do anything with the ls command
-            continue
-    elif "dir" in output: # skip lines that list directories after ls is executed
-        continue
+    elif "dir" in output: # check if dirs exist, if they don't create empty dir as we need to include these in calcs
+        dir = output.replace('dir ', '')
+        if not (current_dir_str + dir + "/") in size_tree.keys():
+            size_tree[(current_dir_str + dir + "/")] = [0]
     elif output[:1].isdigit(): # check if output starts with a digit, which should be a file size
         size = int(re.search(r'\d+', output).group())
         if current_dir_str in size_tree.keys():
@@ -54,10 +54,7 @@ for dir_par,sizes_par in size_tree.items():
             tally += size
         else:
             print("Too big... skipping...")
-        input("Press Enter to continue...")
-    
 
-print(size_tree)
 print(tally)
 
 
