@@ -10,31 +10,29 @@ visible_tree += len(forest) * 2 # add vertical trees
 visible_tree += (len(forest[0]) - 2 ) * 2 # add horizontal trees minus corner trees already counted
 
 def innerTrees(input_row, input_column):
-    row = forest[input_row - 1] # create string containing all items in the trees row 
-    tree = row[input_column - 1] # get the actual tree we are checking
+    row = forest[input_row] # create string containing all items in the trees row 
+    tree = row[input_column] # get the actual tree we are checking 
     column = str("") # init empty string for column of trees
     for each in forest: # create new string containing column of trees
-        column += str(each[input_column - 1])
+        column += str(each[input_column])
 
-    # init row and column sight, assume sight is true to begin with
+    # create arrays of trees to the left, right, above and below of tree we're checking
     sight = False
-
-    # check left
-    for i in range(0, (x - 1)):
-        if not row[i] >= tree:
-            sight = True
-    # check right
-    for i in range((x + 1), len(row) - 1):
-        if not row[i] >= tree:
-            sight = True
-    # check above
-    for i in range(0, (y - 1)):
-        if not column[i] >= tree:
-            sight = True
-    # check below
-    for i in range((y + 1), len(column) - 1):
-        if not column[i] >= tree:
-            sight = True
+    left = []
+    right = []
+    above = []
+    below = []
+    for i in range(0, input_column):
+        left.append(row[i])
+    for i in range((input_column + 1), len(row)):
+        right.append(row[i])
+    for i in range(0, input_row):
+        above.append(column[i])
+    for i in range(input_row + 1, len(column)):
+        below.append(column[i])
+    # get the tallest tree in each direction and check if it's smaller than the tree we're checking
+    if max(left) < tree or max(right) < tree or max(above) < tree or max(below) < tree:
+        sight = True
     return sight
             
 for x in range(1, (len(forest) - 1)):
@@ -43,4 +41,4 @@ for x in range(1, (len(forest) - 1)):
             if sight == True:
                 visible_tree += 1
 
-print(visible_tree)
+print("There are " + str(visible_tree) + " visible trees from outside the forest.")
