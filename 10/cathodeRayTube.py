@@ -39,4 +39,4 @@ for i in range (len(cycle_values)):
         display[row][sprite_position] = "#"
     
 for each in display:
-    print(each)        
+    print(' '.join(each))
