@@ -11,14 +11,22 @@ for each in input:
         starting_items = each.replace('  Starting items: ', '')
         starting_items = starting_items.split(', ')
     elif each.startswith('  Operation: '):
-        operation = each.replace('  Operation: ', '')
+        operation = each.replace('  Operation: new = ', '')
     elif each.startswith('  Test: '):
-        test = each.replace('  Test: ', '')
+        test = int(each.replace('  Test: divisible by ', ''))
     elif each.startswith('    If true: '):
-        true_condition = each.replace('    If true: ', '')
+        true_condition = int(each.replace('    If true: throw to monkey ', ''))
     elif each.startswith('    If false: '):
-        false_condition = each.replace('    If false: ', '')
+        false_condition = int(each.replace('    If false: throw to monkey ', ''))
     elif each == '':
         monkeys[monkey_num] = {'start_items': starting_items, 'operation': operation, 'test': test, 'true_condition': true_condition, 'false_condition': false_condition}
 
-print(monkeys)
+# create monkey class
+class Monkey:
+    def __init__(self, number, items, operation, test, true_condition, false_condition):
+        self.number = number
+        self.items = items
+        self.operation = operation
+        self.test = test
+        self.true_condition = true_condition
+        self.false_condition = false_condition
