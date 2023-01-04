@@ -24,35 +24,35 @@ for each in input:
     elif each == '':
         monkeys[monkey_num] = {'items': starting_items, 'operation': operation, 'test': test, 'true_condition': true_condition, 'false_condition': false_condition}
 
-print(monkeys[0])
+print(monkeys)
 
-for monkey, values in monkeys.items():
-    print("Current monkey is: "+ str(monkey))
-    for item in values['items']:
-        print("Current item is: " + str(item))
-        old = item
-        worry = eval(values['operation'])
-        worry = math.floor(worry / 3)
-        print("Worry is: " + str(worry))
-        if worry % values['test'] == 0:
-            print("Throw to Monkey: " + str(values['true_condition']))
-            print(monkeys[monkey]['items'])
-            print(monkeys[false_condition]['items'])
-            monkeys[true_condition]['items'].append(str(worry))
-            monkeys[monkey]['items'].pop(0)
-            print(monkeys[monkey]['items'])
-            print(monkeys[false_condition]['items'])
-        else:
-            print("Throw to Monkey: " + str(values['false_condition']))
-            print(monkeys[monkey]['items'])
-            print(monkeys[false_condition]['items'])
-            monkeys[false_condition]['items'].append(str(worry))
-            monkeys[monkey]['items'].pop(0)
-            print(monkeys[monkey]['items'])
-            print(monkeys[false_condition]['items'])
-            
+def monkey_loop(iterations: int) -> int:
+    for i in range(iterations): # iterate over monkeys x number of times 
+        for monkey in range(len(monkeys)): # iterate over each monkey 
+            print("Current monkey is: "+ str(monkey))
+            current_items = tuple(monkeys.get(monkey)['items'])
+            print("Loaded current items: " +str(current_items))
+            for item in range(len(current_items)): # iterate over each monkeys items 
+                print("Item loop: " + str(item))
+                print("Current items are: " + str(current_items))
+                old = current_items[item]
+                worry = eval(monkeys.get(monkey)['operation'])
+                worry = math.floor(worry / 3)
+                print("Worry is: " + str(worry))
+                if worry % monkeys.get(monkey)['test'] == 0:
+                    print("Throw to Monkey: " + str(monkeys.get(monkey)['true_condition']))
+                    print(monkeys.get(monkey)['items'])
+                    monkeys.get(true_condition)['items'].append(str(worry))
+                    monkeys.get(monkey)['items'].pop(0)
+                else:
+                    print("Throw to Monkey: " + str(monkeys.get(monkey)['false_condition']))
+                    monkeys.get(false_condition)['items'].append(str(worry))
+                    monkeys.get(monkey)['items'].pop(0)
+                print("Items are now: " + str(monkeys.get(monkey)['items']))
 
+monkey_loop(1)
 
+print(monkeys)
 
 # create monkey class
 # class Monkey:
